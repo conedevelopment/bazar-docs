@@ -73,14 +73,14 @@ Also, you may want to use the manager as a form field. To do so, just use the `f
 
 ## Conversions
 
-You can define conversions to the uploaded **images**. This means, after an image is uploaded, behind the scenes Bazar generates resized and cropped versions that you can easily access using the medium model.
+You can define conversions to the uploaded **images**. This means, after an image is uploaded, behind the scenes Bazar generates for example resized and cropped versions that you can easily access using the `Medium` model.
 
 ### Managing Conversions
 
-You may register or remove conversions in one of your service provider, or you may create a dedicated `ConversionsProvider` class:
+You may register or remove conversions in one of your service provider:
 
 ```php
-use Bazar\Services\Image;
+use Bazar\Conversion\Image;
 use Bazar\Support\Facades\Conversion;
 
 public function boot(): void
@@ -120,6 +120,23 @@ $medium->fullPath('thumb');
 ```
 
 > Note, in case of using an external driver like `S3`, the `fullPath()` method will return the URL of the file. If the `local` driver is used, the file path will be used.
+
+### Conversion Drivers
+
+Mostly the basic resizing, cropping and compressing mechanism is enough. But not every shop has the same needs when it's about image, photo or graphics handling. For example, if you or your client wants to sell high quality visuals, the basic image management that Bazar provides may not be enough.
+
+Like in the case of payment gateways and shipping methods, you may define your own driver that manages conversions:
+
+```php
+use App\Services\CustomConversionDriver;
+use Bazar\Support\Facades\Conversion;
+
+Conversion::extend('custom', function ($app) {
+    return new CustomConversionDriver(
+        $app['config']->get('services.custom_conversion')
+    );
+});
+```
 
 ## Commands
 
