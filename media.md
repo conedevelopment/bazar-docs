@@ -128,7 +128,14 @@ Mostly the basic resizing, cropping and compressing mechanism is enough. But not
 Like in the case of payment gateways and shipping methods, you may define your own driver that manages conversions:
 
 ```php
+use App\Services\CustomConversionDriver;
+use Bazar\Support\Facades\Conversion;
 
+Conversion::extend('custom', function ($app) {
+    return new CustomConversionDriver(
+        $app['config']->get('services.custom_conversion')
+    );
+});
 ```
 
 ## Commands
