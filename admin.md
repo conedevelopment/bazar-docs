@@ -12,13 +12,25 @@ Bazar provides a simple and extendable admin UI that comes with a lots of built-
 
 ## Customizing the UI
 
-After running the `php artisan bazar:install` command, Bazar will create symlinks for the compiled assets, so you can use admin surface instantly. However as your application grows, you might want to customize or extend the UI and the functionallity.
+After running the `php artisan bazar:install` and the `php artisan bazar:publish` commands.
 
-To do so, run the `php artisan bazar:publish --tag=bazar-assets` command. This will place all the views, JS, CSS and other assets that the project uses. At this point, all you need to do, is to customize what you want and recompile the assets.
+To publish only the assets (compiled as well), run the `php artisan bazar:publish --tag=bazar-assets` command. This will place all the views, JS, CSS and other assets that the project uses. At this point, all you need to do, is to customize what you want and recompile the assets.
+
+> Note, Bazar automatically publishes the assets that are registered with the `Asset::script()` and `Asset::style()` methods. These assets are compiled, so you can use them instantly. To customize them, make sure the package publishes the pre-compiled scripts and styles to the application's `resources` directory.
 
 Also, you may use the `--packages` option to automatically update your `packages.json` file with the required `devDependencies`, and the `--mix` option, to update your `webpack.mix.js` file with the proper compiling tasks.
 
 > By default the `app.blade.php` uses the `/vendor/bazar/` prefix in the asset URLs.
+
+To ensure Bazar's assets are always up-to-date, you may add a Composer hook inside your project's `composer.json` file to automatically publish latest assets:
+
+```json
+"scripts": {
+    "post-update-cmd": [
+        "@php artisan bazar:publish"
+    ]
+}
+```
 
 ## Translations
 
