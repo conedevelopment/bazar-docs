@@ -8,35 +8,35 @@ order: 3
 
 ## Generic Overview
 
-Bazar comes with a cart service by default, which manages cart models and their funcionality. The cart service is one of the most important concept in Bazar. It handles products and variations, quantities, taxes and discounts, shipping and prepares the checkout process.
+Bazar comes with a cart service by default, which manages cart models and their functionality.y. The cart service is one of the most crucial concepts in Bazar. It handles products, variations, quantities, taxes, discounts, shipping and prepares the checkout process.
 
 You can access the current cart by using the `Bazar\Support\Facades\Cart` facade.
 
-> When using the `Cart` facade, keep in mind, the **facade** forwards calls to the `Cart` **model**. This provides a more flexible approach.
+> When using the `Cart` facade, keep in mind, the **facade** forwards calls to the `Cart` **model**; this provides a more flexible approach.
 
 ### The User Model
 
-Cart models can be associated to the `Bazar\Models\User` models, by using the `HasOne` relationship. Retrieving and associating the models are the job of the current cart driver. Bazar ships the [`CookieDriver`](#cookie-driver) by default.
+Cart models can be associated with the `Bazar\Models\User` models by using the `HasOne` relationship. Retrieving and associating the models is the job of the current cart driver. Bazar ships the [`CookieDriver`](#cookie-driver) by default.
 
 ### Items
 
-Products can be attached to the cart by using the `Bazar\Models\Item` pivot model. This model holds all the important information of the relationship between the cart and the product, such as `price`, `quantity`, `tax` and all the custom `properties`.
+Products can be attached to the cart by using the `Bazar\Models\Item` pivot model. This model holds all the critical information of the relationship between the cart and the product, such as `price`, `quantity`, `tax` and custom `properties`.
 
-One product can be attached to the cart as different items. In fact, if a product will be attached to the cart with `properties` that are already present, the `quantity` will be increased automatically. However, if there is no product attached with the given properties, a new item will be created.
+One product can be attached to the cart as different items. In fact, if a product will be attached to the cart with `properties` that are already present, the `quantity` will be increased automatically. However, if there is no product linked with the given properties, a new item will be created.
 
-This approach makes it easy to handle quantities, prices and variations easily in a cart – even if the same product was attached multiple times but different `properties`.
+This approach makes it simple to handle quantities, prices, and variations in a cart – even if the same product was attached multiple times but with different `properties`.
 
 #### Properties
 
-Item properties has a key role. First of all, it makes possible to differetiate between items. Also, this provides a huge flexibility. For example, you can create any custom property you want, which can increase or decrease the price, tax or any attribute of the item before it's getting saved.
+Item properties have a key role. First of all, it makes it possible to differentiate between items. Also, this provides vast flexibility. For example, you can create any custom property you want, increasing or decreasing the price, tax, or any attribute of the item before it's getting saved.
 
-By default, Bazar provides a registered property called `option`. If is there any product variation matches with the given option, automatically the variation's attributes – like price price - will be saved for the item.
+By default, Bazar provides a registered property called an `option`. If there are any product variation matches with the given option, automatically, the variation's attributes – like the price - will be saved for the item.
 
 #### Registering Custom Properties
 
-When attaching products to the cart, you may pass custom properties to being saved. You may hook into the saving process, by using custom property resolvers.
+When attaching products to the cart, you may pass custom properties to being saved. You may hook into the saving process by using custom property resolvers.
 
-Let's say, the customers can a add custom text to the item. The text should cost `0.1` unit per character. To achieve this, you may register a custom property resovler using the `Item::resolvePropertyUsing()`.
+Let's say the customers can add custom text to the item. The text should cost `0.1` units per character. To achieve this, you may register a custom property resolver using the `Item::resolvePropertyUsing()`.
 
 ```php
 // AppServiceProvider
@@ -64,11 +64,11 @@ Cart::add($product, 1, ['custom-text' => 'My custom text.']);
 
 Since the `My custom text.` string is 15 characters long, the price will be increased with `15 * 0.1 = 1.5` unit.
 
-> Note, the base price is always the original price of the product or the variation, and uses the currently set currency.
+> Note, the base price is always the original price of the product or the variation and uses the currently set currency.
 
 ### Taxes
 
-> Before moving on, you may check the [tax documentation](/docs/tax), about managing taxes.
+> Before moving on, you may check the [tax documentation](/docs/tax) about managing taxes.
 
 The `Cart` model uses the `Itemable` trait, which allows the model to interact with its `Taxable` models. Taxes are stored on the `Item` and `Shipping` models.
 
@@ -89,7 +89,7 @@ $tax = Cart::model()->tax(false);
 
 ### Discounts
 
-> Before moving on, you may check the [discount documentation](/docs/discount), about managing discounts.
+> Before moving on, you may check the [discount documentation](/docs/discount) about managing discounts.
 
 Unlike TAXes, discounts are stored directly on the model as an aggregated value.
 
@@ -108,7 +108,7 @@ $tax = Cart::model()->discount(false);
 
 ### Shipping
 
-> Before moving on, you may check the [shipping documentation](/docs/shipping), about managing shipping methods.
+> Before moving on, you may check the [shipping documentation](/docs/shipping) about managing shipping methods.
 
 ```php
 use Bazar\Support\Facades\Cart;
@@ -128,9 +128,9 @@ Cart::model()->shipping->driver('custom-driver')->cost();
 
 ### Lock/Unlock Mechanism
 
-Bazar supports multiple currencies by default. Imagine a scenario when your customer starts to put item in the cart with USD prices, but then suddenly the customer changes the currency. In this case, Bazar recalculates the prices, taxes and discounts and also, it will update the cart's currency.
+Bazar supports multiple currencies by default. Imagine a scenario when your customer starts to put an item in the cart with USD prices, but suddenly, the customer changes the currency. In this case, Bazar recalculates the fees, taxes, discounts and will update the cart's currency.
 
-However, this behavior can be controlled by the lock/unlock mechanism. When the cart is *unlocked*, Bazar will update the items on currency change. But when the cart is *locked*, it will keep the original currency and it values.
+However, this behavior can be controlled by the lock/unlock mechanism. When the cart is *unlocked*, Bazar will update the items on currency change. But when the cart is *locked*, it will keep the original currency and its values.
 
 > Note, you may retrieve the `Cart` model using the `Cart` facade for this feature.
 
@@ -152,11 +152,11 @@ Cart::query()->locked();
 Cart::query()->unlocked();
 ```
 
-This can be extremely useful on the checkout process. Locking the cart can make sure that the values are not changing during the process.
+This can be extremely useful in the checkout process. Locking the cart can make sure that the values are not changing during the process.
 
 ### Expiration
 
-To keep the database clean, carts without owners **expire in 3 days**. To retreive the expired carts, you may use the `expired()` query scope on the `Cart` model:
+To keep the database clean, carts without owners **expire in 3 days**. To retrieve the expired carts, you may use the `expired()` query scope on the `Cart` model:
 
 ```php
 use Bazar\Models\Cart;
@@ -164,9 +164,9 @@ use Bazar\Models\Cart;
 $expired = Cart::expired()->get();
 ```
 
-Also, Bazar provides a command to clean all the expired carts easily. You may run the `php artisan bazar:clear-carts` command to delete the expired cart records from the database.
+Also, Bazar provides a command to clean all the expired carts easily. You may run the `php artisan bazar:clear-carts` command to delete the database's expired cart records.
 
-> In some case, you may delete all the existing carts. To do so, pass the `--all` flag to the command.
+> In some cases, you may delete all the existing carts. To do so, pass the `--all` flag to the command.
 
 You may call this command from the scheduler to automatize the cleanup process:
 
@@ -199,13 +199,13 @@ Like shipping and payment gateway, Bazar manages multiple cart drivers as well. 
 
 ### Cookie Driver
 
-Bazar comes with a cookie driver by default. It stores the current cart's token as cookie and retrieves the cart model based on the stored token. Because of its simple implementation, the cookie driver is not configurable.
+Bazar comes with a cookie driver by default. It stores the current cart's token as a cookie and retrieves the cart model based on the stored token. Because of its straightforward implementation, the cookie driver is not configurable.
 
 ### Creating Custom Drivers
 
 Registering cart drivers works almost the same as registering shipping methods or payment gateways. All custom drivers should extend the `Bazar\Cart\Driver` class, which holds one abstract method: `resolve()`.
 
-> Note, the name is guessed automatically from the classname by default. If the guessed name does not match the desired one, you may specify your custom driver name by using the `name()` method.
+> Note, the name is guessed automatically from the class name by default. If the guessed name does not match the desired one, you may specify your custom driver name using the `name()` method.
 
 ```php
 use Bazar\Cart\Driver;
