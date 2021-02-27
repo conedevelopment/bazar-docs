@@ -8,13 +8,13 @@ order: 11
 
 ## Generic Overview
 
-Bazar comes with a flexible tax support by default. You can easily manage tax definitions by using the `Bazar\Support\Facades\Tax` facade.
+Bazar comes with flexible tax support by default. You can easily manage tax definitions by using the `Bazar\Support\Facades\Tax` facade.
 
-Taxes are stored on the `Item` and the `Shipping` models. Both of them implement the `Taxable` interface, which enforces to use a unified method signature for calculating taxes.
+Taxes are stored on the `Item` and the `Shipping` models. Both implement the `Taxable` interface, which enforces to use of a unified method signature for calculating taxes.
 
 ## Registering Taxes
 
-You may register taxes using the `Tax` facade. You can pass a number, a `Closure`, or a class (that implements the `Bazar\Contracts\Tax` interface) along the name of the tax.
+You may register taxes using the `Tax` facade. You can pass a number, a `Closure`, or a class (that implements the `Bazar\Contracts\Tax` interface) along with the name of the tax.
 
 ```php
 use Bazar\Support\Facades\Tax;
@@ -65,7 +65,7 @@ Tax::remove('complex-tax');
 
 ## Disabling Taxes
 
-You may disable tax calculation globally in some screnarios. To do so, call the `disable` method on the `Tax` facade.
+You may disable tax calculation globally in some scenarios. To do so, call the `disable` method on the `Tax` facade.
 
 ```php
 use Bazar\Support\Facades\Tax;
@@ -73,4 +73,4 @@ use Bazar\Support\Facades\Tax;
 Tax::disable();
 ```
 
-> Note, when disabling taxes, the previously set taxes won't be updated or recalculated, they stay untouched.
+> Note, when disabling taxes, the previously set taxes won't be updated or recalculated. They stay untouched.
