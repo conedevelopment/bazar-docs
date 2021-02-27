@@ -8,7 +8,7 @@ order: 4
 
 ## Generic Overview
 
-The checkout service is no more but a helper class that manages and chains the various steps like updating addresses, creating the order, calculating shipping cost, taxes and discounts.
+The checkout service is no more than a helper class that manages and chains the various steps like updating addresses, creating the order, calculating shipping cost, taxes and discounts.
 
 ```php
 use Bazar\Modesl\Order;
