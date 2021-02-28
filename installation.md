@@ -1,3 +1,4 @@
+
 ---
 posttype: "doc"
 title: "Installation"
@@ -50,7 +51,7 @@ Also, you may populate your local database with *fake* data. To do so, pass the 
 ```sh
 php artisan ui bootstrap --auth
 
-php artisan bazar:install {--seed}
+php artisan bazar:install --seed
 ```
 
 ### Publishing Assets
