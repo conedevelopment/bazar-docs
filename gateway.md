@@ -8,15 +8,15 @@ order: 7
 
 ## Generic Overview
 
-Gateways are responsible to handle the payment or the refund process of an order.
+Gateways are responsible for handling the payment or the refund process of an order.
 
 ## Gateway Drivers
 
-Bazar provides some default drivers out of the box: `Cash`, `Transfer` and `Manual` drivers. They all hold a very simple logic and transaction handling, however in many cases they can be enough.
+Bazar provides some default drivers out of the box: `Cash`, `Transfer`, and `Manual` drivers. They all hold an elementary logic and transaction handling; however, they can be enough in many cases.
 
-> Note, `Cash` and `Manual` drivers are makring the transactions completed instantly, while the `Transfer` driver saves it as a pending transaction.
+> Note, `Cash` and `Manual` drivers are making the transactions completed instantly, while the `Transfer` driver saves it as a pending transaction.
 
-Also, you may add your own driver easily that implements the required logic or pull in a package that provides a gateway.
+Also, you may add your custom driver easily that implements the required logic or pull in a package that provides a gateway.
 
 ### Creating Custom Drivers
 
