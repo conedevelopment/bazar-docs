@@ -8,9 +8,9 @@ order: 9
 
 ## Generic Overview
 
-Bazar comes with a very simple yet flexible and powerful media manager component both on back-end and front-end. We can easily upload multiple files in the same time – even bigger ones thanks to the chunked uploads – or search in existing files. Also, we can easily assing any medium to any model that uses the `HasMedia` trait.
+Bazar comes with a straightforward yet flexible and powerful media manager component both on the back-end and front-end. We can easily upload multiple files simultaneously – even bigger ones thanks to the chunked uploads – or search in existing files. Also, we can easily assign any medium to any model that uses the `HasMedia` trait.
 
-You may also configure in the `bazar.php` config file, which disk should be used for storing the uploaded files. By default it's `public`. You may also set the file chunk expiration as well.
+You may also configure in the `bazar.php` config file, which disk should be used for storing the uploaded files. By default, it's `public`. You may also set the file chunk expiration.
 
 > If you decide to stick with the `public` disk, don't forget to run the `php artisan storage:link` command.
 
@@ -18,7 +18,7 @@ You may also configure in the `bazar.php` config file, which disk should be used
 
 ## The HasMedia trait
 
-This trait does nothing more, but defining a polymorphic relation between the `Medium` and the target model.
+This trait does nothing more but defining a polymorphic relation between the `Medium` and the target model.
 
 ```php
 use Bazar\Concerns\HasMedia;
@@ -32,7 +32,7 @@ class Post extends Model
 }
 ```
 
-After we setup our model, we can easily attach media models to our model, in this case to the `Post` model:
+After we set up our model, we can easily attach media models to our model, in this case to the `Post` model:
 
 ```php
 $post = Post::first();
@@ -73,11 +73,11 @@ Also, you may want to use the manager as a form field. To do so, just use the `f
 
 ## Conversions
 
-You can define conversions to the uploaded **images**. This means, after an image is uploaded, behind the scenes Bazar generates for example resized and cropped versions that you can easily access using the `Medium` model.
+You can define conversions to the uploaded **images**. This means after an image is uploaded, behind the scenes, Bazar generates, for example, resized and cropped versions that you can easily access using the `Medium` model.
 
 ### Managing Conversions
 
-You may register or remove conversions in one of your service provider:
+You may register or remove conversions in one of your service providers:
 
 ```php
 use Bazar\Conversion\Image;
@@ -99,7 +99,7 @@ public function boot(): void
 
 ### Using Conversions
 
-You can easily access to the conversions of a medium model by using their URL and path functions:
+You can easily access the conversions of a medium model by using their URL and path functions:
 
 ```php
 use Bazar\Models\Medium;
@@ -119,13 +119,13 @@ $medium->fullPath();
 $medium->fullPath('thumb');
 ```
 
-> Note, in case of using an external driver like `S3`, the `fullPath()` method will return the URL of the file. If the `local` driver is used, the file path will be used.
+> Note, in the case of using an external driver like `S3`, the `fullPath()` method will return the URL of the file. If the `local` driver is used, the file path will be used.
 
 ### Conversion Drivers
 
-Mostly the basic resizing, cropping and compressing mechanism is enough. But not every shop has the same needs when it's about image, photo or graphics handling. For example, if you or your client wants to sell high quality visuals, the basic image management that Bazar provides may not be enough.
+Mostly the basic resizing, cropping, and compressing mechanism is enough. But not every shop has the same needs when it's about image, photo, or graphics handling. For example, if you or your client wants to sell high-quality visuals, Bazar's basic image management may not be enough.
 
-Like in the case of payment gateways and shipping methods, you may define your own driver that manages conversions:
+Like in the case of payment gateways and shipping methods, you may define your custom driver that manages conversions:
 
 ```php
 use App\Services\CustomConversionDriver;
