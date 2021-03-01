@@ -140,7 +140,7 @@ Conversion::extend('custom', function ($app) {
 
 ## Commands
 
-To clear up the expired file chunks, you may call the `php artisan bazar:clear-chunks` command. You may call this command from the scheduler to automatize the cleanup process:
+To clear up the expired file chunks, you may call the `php artisan bazar:clear-chunks` command. You may call this command from the scheduler to automate the cleanup process:
 
 ```php
 // app/Console/Kernel.php
