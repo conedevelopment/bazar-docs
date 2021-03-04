@@ -1,4 +1,3 @@
-
 ---
 posttype: "doc"
 title: "Installation"
