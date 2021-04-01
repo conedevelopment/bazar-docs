@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Discount"
 description: "Registering discounts, disabling the discount calculation."
 icon: "/icons/discount.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/discount.md"
 order: 8
 ---
 

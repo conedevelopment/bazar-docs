@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Gateway"
 description: "Registering payment gateways, payment and refund handlers."
 icon: "/icons/gateway.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/gateway.md"
 order: 7
 ---
 

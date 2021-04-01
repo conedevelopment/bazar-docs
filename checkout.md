@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Checkout"
 description: "The checkout service."
 icon: "/icons/checkout.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/checkout.md"
 order: 4
 ---
 

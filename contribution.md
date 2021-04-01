@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Contribution"
 description: "Contribution guide, PRs and issues."
 icon: "/icons/contribution.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/contribution.md"
 order: 12
 ---
 

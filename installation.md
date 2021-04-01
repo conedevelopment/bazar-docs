@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Installation"
 description: "Installing and configuring Bazar."
 icon: "/icons/installation.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/installation.md"
 order: 1
 ---
 

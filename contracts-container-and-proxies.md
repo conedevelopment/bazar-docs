@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Contracts, Container & Proxies"
 description: "Swap any container binding easily and bring your own customized classes and logic."
 icon: "/icons/containers.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/contracts-container-and-proxies.md"
 order: 5
 ---
 

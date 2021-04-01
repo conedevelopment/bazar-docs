@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Cart"
 description: "Conceptual overview of the cart facade and the custom cart drivers."
 icon: "/icons/cart.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/cart.md"
 order: 3
 ---
 

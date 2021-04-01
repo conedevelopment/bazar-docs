@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Media"
 description: "Media manager, conversions, file uploads."
 icon: "/icons/media.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/media.md"
 order: 9
 ---
 
