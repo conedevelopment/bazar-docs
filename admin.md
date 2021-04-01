@@ -3,6 +3,7 @@ posttype: "doc"
 title: "Admin"
 description: "Documentation of admin UI and authorization."
 icon: "/icons/admin.svg"
+github: "https://github.com/conedevelopment/bazar-docs/blob/main/admin.md"
 order: 2
 ---
 
