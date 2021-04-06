@@ -26,7 +26,7 @@ class Product extends BaseProduct
 }
 ```
 
-After you created your custimizable model, you can swap the container binding for the product contract. You might do that in one of your service provider's `register` method:
+After you created your customizable model, you can swap the container binding for the product contract. You might do that in one of your service provider's `register` method:
 
 ```php
 use App\Models\Product;
@@ -45,22 +45,62 @@ public function register()
 Proxies are representing the classes that are currently bound to the container. You usually won't use these a lot, but in some cases – like when you develop a package or extension – proxies can be convenient.
 
 ```php
-use Bazar\Proxies\Product as ProductProxy;
+use Bazar\Models\Product;
 
 // Available proxy methods
-ProductProxy::getProxiedClass();
-ProductProxy::getProxiedInstace();
-ProductProxy::getProxiedContract();
+Product::proxy();
+Product::getProxiedClass();
+Product::getProxiedContract();
 
 // Proxied calls to the bound instance
-ProductProxy::query()->where(...);
-ProductProxy::getProxiedInstace()->variation(...);
+Product::proxy()->newQuery()->where(...);
+Product::proxy()->variation(...);
 
 // Dynamic usage of bound classes
 public function product()
 {
-    $this->belongsTo(ProductProxy::getProxiedClass());
+    $this->belongsTo(Product::getProxiedClass());
 }
 ```
 
-> Note, proxies are facades. You can use the container directly by type-hinting the contract itself, like a traditional route-model-binding in your controller.
+Bazar provides the `InteractsWithProxy` trait, that makes the desired class proxyable. The trait comes with an abstract methods to be able to resolve the proxies class from the container automatically:
+
+```php
+namespace App\Models;
+
+use App\Contracts\Models\Addon as Contract;
+use Bazar\Concerns\InteractsWithProxy;
+use Illuminate\Databse\Eloquent\Model;
+
+class Addon extends Model implements Contract
+{
+    use InteractsWithProxy;
+
+    /**
+     * Get the proxied contract.
+     *
+     * @return string
+     */
+    public static function getProxiedContract(): string
+    {
+        return Contract::class;
+    }
+}
+```
+
+Also, we need to bind the contract to the container in a service provider:
+
+```php
+public function register(): void
+{
+    $this->app->bind(\App\Contracts\Models\Addon::class, \App\Models\Addon::class);
+}
+```
+
+From this point, our `Addon` model is proxyable, which means if we swap the binding in the container, the proxied class will be the currently bound value and not the original one. This adds more flexibility when extending our application or using packages.
+
+```php
+// Use the Addon proxy
+
+Addon::proxy()->newQuery();
+```
