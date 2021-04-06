@@ -13,7 +13,7 @@ Before moving on, please check out the Laravel [documentation](https://laravel.c
 
 Requirements:
 - Laravel `^8.22.1`
-- PHP `7.3+`
+- PHP `7.4+`
 - PHP GD and EXIF extensions
 
 ## Installation
