@@ -3,7 +3,7 @@ posttype: "doc"
 title: "Extensions"
 description: "Themes, packages, gateways, shipping methods."
 icon: "/icons/extensions.svg"
-github: "https://github.com/conedevelopment/bazar-docs/blob/main/extensions.md"
+github: "https://github.com/conedevelopment/bazar-docs/blob/master/extensions.md"
 order: 6
 ---
 

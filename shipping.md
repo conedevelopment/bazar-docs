@@ -3,7 +3,7 @@ posttype: "doc"
 title: "Shipping"
 description: "Registering shipping methods, calculating shipping costs."
 icon: "/icons/shipping.svg"
-github: "https://github.com/conedevelopment/bazar-docs/blob/main/shipping.md"
+github: "https://github.com/conedevelopment/bazar-docs/blob/master/shipping.md"
 order: 10
 ---
 

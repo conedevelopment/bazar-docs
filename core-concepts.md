@@ -3,7 +3,7 @@ posttype: "doc"
 title: "Core Concepts"
 description: "Definitions and core concepts."
 icon: "/icons/core-concepts.svg"
-github: "https://github.com/conedevelopment/bazar-docs/blob/main/core-concepts.md"
+github: "https://github.com/conedevelopment/bazar-docs/blob/master/core-concepts.md"
 order: 0
 ---
 

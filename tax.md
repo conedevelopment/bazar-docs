@@ -3,7 +3,7 @@ posttype: "doc"
 title: "Tax"
 description: "Registering taxes, disabling the tax calculation."
 icon: "/icons/tax.svg"
-github: "https://github.com/conedevelopment/bazar-docs/blob/main/tax.md"
+github: "https://github.com/conedevelopment/bazar-docs/blob/master/tax.md"
 order: 11
 ---
 
