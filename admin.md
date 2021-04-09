@@ -9,7 +9,7 @@ order: 2
 
 ## Generic Overview
 
-Bazar provides a simple and extendable admin UI that comes with lots of built-in functionality. The UI is built on `Bootstrap`, `Vue`, and `Inertia`.
+Bazar provides a simple and extendable admin UI that comes with lots of built-in functionality. The UI is built on `Bootstrap`, `Vue 3`, and `Inertia.js`.
 
 ## Customizing the UI
 
@@ -31,6 +31,66 @@ To ensure Bazar's assets are always up-to-date, you may add a Composer hook insi
         "@php artisan bazar:publish"
     ]
 }
+```
+
+## Custom Assets
+
+Bazar provides a simple asset manager out of the box. You may register your custom scripts, styles and icons using the `Bazar\Support\Facades\Asset` facade.
+
+> **Important**: only the *compiled* assets should be registered with the `Asset` facade. The raw/pre-compiled assets should be publishable using the app's/package's service provider.
+
+```php
+use Bazar\Support\Facades\Asset;
+
+// Register a script
+Asset::script('bazar-package', __DIR__.'/path/to/compiled.js');
+
+// Register a style
+Asset::style('bazar-package', __DIR__.'/path/to/compiled.css');
+
+// Register an icon
+Asset::icon('bazar-package', 'bazar-package::path.to.blade');
+```
+
+> Note, the icons must be simple SVG files wrapped into a blade template. Also, make sure that the views are loaded from the package.
+
+## Pages
+
+Bazar uses [Inertia](https://inertiajs.com/) on the whole admin surface. This means unlike using traditional blade templates, you can't load these *Singe File Components (SFC)* from your service provider, only from a registered script.
+
+After you registered a script with the asset manager, by using the proper evetns, you can bind your custom Inertia pages easily:
+
+```js
+import Index from './Pages/Index';
+import CustomPlugin from './Plugins/Custom';
+
+document.addEventListener('bazar:booting', (event) => {
+    // Adding the page to the stack, that Inertia could load
+    window.Bazar.pages['Addons/Index'] = Index;
+
+    // Adding any component, plugin, mixin, directive, etc.
+    // event.detail is the pre-mounted Vue instance
+    event.detail.use(CustomPlugin);
+});
+```
+
+## Menus
+
+Bazar provides a very simple menu builder by default. Managing the menu items via the `Bazar\Support\Facades\Menu` facade, makes possible to extend the menu items in the Admin UI, without touching any front-end code.
+
+```php
+use Bazar\Support\Facades\Menu;
+
+// Registering a resource item with submenus
+Menu::resource(URL::to('bazar/users'), __('Users'), [
+    'icon' => 'customer',
+]);
+
+// Regsitering a single item
+Menu::register(URL::to('bazar/support'), __('Support'), [
+    'icon' => 'support',
+    'group' => __('Tools'),
+]);
 ```
 
 ## Translations
