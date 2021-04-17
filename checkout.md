@@ -48,6 +48,6 @@ class CheckoutController extends Controller
 
 The following events may be triggered when using the checkout service:
 - The `Bazar\Events\CheckoutProcessing`: when the checkout processed and **before** the `onSuccess` callback was called.
-- The `Bazar\Events\CheckoutProcessed`: when the checkout failed and **after** the `onSuccess` callback was called.
+- The `Bazar\Events\CheckoutProcessed`: when the checkout processed and **after** the `onSuccess` callback was called.
 - The `Bazar\Events\CheckoutFailing`: when the checkout failed and **before** the `onFailure` callback was called.
 - The `Bazar\Events\CheckoutFailed`: when the checkout failed and **after** the `onFailure` callback was called.
