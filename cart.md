@@ -27,6 +27,14 @@ One product can be attached to the cart as different items. In fact, if a produc
 
 This approach makes it simple to handle quantities, prices, and variations in a cart – even if the same product was attached multiple times but with different `properties`.
 
+```php
+$item = Cart::addItem($product, 1, ['size' => 'L']);
+
+Cart::updateItem($item->id, ['size' => 'S']);
+
+Cart::removeItem($item->id);
+```
+
 #### Properties
 
 Item properties have a key role. First of all, it makes it possible to differentiate between items. Also, this provides vast flexibility. For example, you can create any custom property you want, increasing or decreasing the price, tax, or any attribute of the item before it's getting saved.
@@ -60,7 +68,7 @@ use Bazar\Support\Facades\Cart;
 
 $product = Product::find(1);
 
-Cart::add($product, 1, ['custom-text' => 'My custom text.']);
+Cart::addItem($product, 1, ['custom-text' => 'My custom text.']);
 ```
 
 Since the `My custom text.` string is 15 characters long, the price will be increased with `15 * 0.1 = 1.5` unit.
@@ -79,13 +87,13 @@ There are several methods to retrieve the aggregated tax for the model:
 use Bazar\Support\Facades\Cart;
 
 // Aggregate the calculated taxes
-$tax = Cart::model()->tax;
+$tax = Cart::getModel()->tax;
 
 // Recalculate the taxes and update the items
-$tax = Cart::model()->tax();
+$tax = Cart::getModel()->tax();
 
 // Recalculate the taxes without updating the items
-$tax = Cart::model()->tax(false);
+$tax = Cart::getModel()->tax(false);
 ```
 
 ### Discounts
@@ -98,13 +106,13 @@ Unlike TAXes, discounts are stored directly on the model as an aggregated value.
 use Bazar\Support\Facades\Cart;
 
 // Get the discount attribute
-$tax = Cart::model()->discount;
+$tax = Cart::getModel()->discount;
 
 // Recalculate and update the model
-$tax = Cart::model()->discount();
+$tax = Cart::getModel()->discount();
 
 // Recalculate without updating the model
-$tax = Cart::model()->discount(false);
+$tax = Cart::getModel()->discount(false);
 ```
 
 ### Shipping
@@ -115,16 +123,16 @@ $tax = Cart::model()->discount(false);
 use Bazar\Support\Facades\Cart;
 
 // Get the calculated shipping cost
-Cart::model()->shipping->cost;
+Cart::getModel()->shipping->cost;
 
 // Recalculate the shipping cost
-Cart::model()->shipping->cost();
+Cart::getModel()->shipping->cost();
 
 // Recalculate the shipping cost without updating the shipping model
-Cart::model()->shipping->cost(false);
+Cart::getModel()->shipping->cost(false);
 
 // Recalculate the shipping cost with the given shipping driver
-Cart::model()->shipping->driver('custom-driver')->cost();
+Cart::getModel()->shipping->driver('custom-driver')->cost();
 ```
 
 ### Lock/Unlock Mechanism

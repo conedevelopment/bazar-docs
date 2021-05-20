@@ -39,7 +39,7 @@ Bazar provides some default drivers out of the box: `Local Pickup` and `Weight B
 
 Registering shipping methods works almost the same as registering gateways methods. All custom drivers should extend the `Bazar\Shipping\Driver` class, which holds one abstract method: `calculate()`.
 
-> Note, the name is guessed automatically from the class name by default. If the guessed name does not match the desired one, you may specify your custom driver name using the `name()` method.
+> Note, the name is guessed automatically from the class name by default. If the guessed name does not match the desired one, you may specify your custom driver name using the `getName()` method.
 
 Let's create a simple driver as an example:
 

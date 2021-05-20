@@ -23,7 +23,7 @@ Also, you may add your custom driver easily that implements the required logic o
 
 Registering gateways works almost the same as registering shipping methods. All custom drivers should extend the `Bazar\Gateway\Driver` class, which holds two abstract methods: `pay()` and `refund()`.
 
-> Note, the name is guessed automatically from the classname by default. If the guessed name does not match the desired one, you may specify your custom driver name by using the `name()` method.
+> Note, the name is guessed automatically from the classname by default. If the guessed name does not match the desired one, you may specify your custom driver name by using the `getName()` method.
 
 Let's create a simple driver as an example:
 
@@ -34,14 +34,22 @@ use Bazar\Models\Transaction;
 
 class CreditCardDriver extends Driver
 {
-    public function pay(Order $order, float $amount = null): Transaction
+    public function pay(Order $order, ?float $amount = null, array $attributes = []): Transaction
     {
-        //
+        $transaction = $order->pay($amount, 'credit-card', $attributes);
+
+        // Handle redirection, API calls here if needed
+
+        return $transaction;
     }
 
-    public function refund(Order $refund, float $amount = null): Transaction
+    public function refund(Order $refund, ?float $amount = null, array $attributes = []): Transaction
     {
-        //
+        $transacion = $order->refund($amount, 'credit-card', $attributes);
+
+        // Handle redirection, API calls here if needed
+
+        return $transaction;
     }
 }
 ```
