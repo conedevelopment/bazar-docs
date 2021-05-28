@@ -70,7 +70,9 @@ document.addEventListener('bazar:booting', (event) => {
 
     // Adding any component, plugin, mixin, directive, etc.
     // event.detail is the pre-mounted Vue instance
-    event.detail.use(CustomPlugin);
+    const app = event.detail;
+
+    app.use(CustomPlugin);
 });
 ```
 

@@ -27,25 +27,26 @@ Tax::register('fix-20', 20);
 ```php
 // Custom closure tax
 use Bazar\Models\Shipping;
+use Bazar\Contracts\LineItem;
 use Bazar\Support\Facades\Tax;
 
-Tax::register('custom-percent', function (Taxable $model) {
-    return $model->price * ($model instanceof Shipping ? 0.3 : 0.27);
+Tax::register('custom-percent', function (LineItem $model) {
+    return $model->getPrice() * ($model instanceof Shipping ? 0.3 : 0.27);
 });
 ```
 
 ```php
 // Class tax
 use Bazar\Contracts\Tax as Contract;
-use Bazar\Contracts\Taxable;
+use Bazar\Contracts\LineItem;
 use Bazar\Models\Shipping;
 use Bazar\Support\Facades\Tax;
 
 class CustomTax implements Contract
 {
-    public function calculate(Taxable $model): float
+    public function calculate(LineItem $model): float
     {
-        return $model->price * ($model instanceof Shipping ? 0.3 : 0.27);
+        return $model->getPrice() * ($model instanceof Shipping ? 0.3 : 0.27);
     }
 }
 

@@ -61,14 +61,9 @@ The manager is a globally registered Vue component. You can also set two attribu
 Also, you may want to use the manager as a form field. To do so, just use the `form-media` component which is a wrapper around the manager. However it provides error handling, displays the selected media items and so on.
 
 ```html
-<data-form action="/posts/1" :model="post">
-    <template #default="form">
-        <form-input name="title" label="Title" v-model="form.fields.title"></form-input>
-    </template>
-
-    <template #aside="form">
-        <form-media name="media" multiple v-model="form.fields.media"></form-media>
-    </template>
+<data-form action="/posts/1" :data="post" #default="form">
+    <form-input name="title" label="Title" v-model="form.fields.title"></form-input>
+    <form-media name="media" multiple v-model="form.fields.media"></form-media>
 </data-form>
 ```
 
@@ -108,16 +103,16 @@ use Bazar\Models\Medium;
 $medium = Medium::find(1);
 
 // Get the URL of the original file or the given conversion
-$medium->url();
-$medium->url('thumb');
+$medium->getUrl();
+$medium->getUrl('thumb');
 
 // Get the relative path of the original file or the given conversion
-$medium->path();
-$medium->path('thumb');
+$medium->getPath();
+$medium->getPath('thumb');
 
 // Get the full path of the original file or the given conversion
-$medium->fullPath();
-$medium->fullPath('thumb');
+$medium->getFullPath();
+$medium->getFullPath('thumb');
 ```
 
 > Note, in the case of using an external driver like `S3`, the `fullPath()` method will return the URL of the file. If the `local` driver is used, the file path will be used.

@@ -12,7 +12,7 @@ order: 1
 Before moving on, please check out the Laravel [documentation](https://laravel.com/docs/master/installation) about its installation, requirements, and configuration.
 
 Requirements:
-- Laravel `^8.22.1`
+- Laravel `^8.43`
 - PHP `7.4+`
 - PHP GD and EXIF extensions
 
@@ -28,16 +28,16 @@ composer require conedevelopment/bazar
 
 Also, make sure the verification routes are included. This is required because the user model implements the `MustVerifyEmail` interface and all Bazar routes use the `verified` middleware.
 
-> Please note: **Bazar does not bring any auth logic or functionality out of the box**. The Laravel UI package provides a perfect solution for that; also, it's an easy task to customize it as you wish, but it's optional.
+> Please note: **Bazar does not bring any auth logic or functionality out of the box**. The [Laravel Breeze](https://laravel.com/docs/8.x/starter-kits#laravel-breeze) package provides a perfect solution for that; also, it's an easy task to customize it as you wish, but it's optional.
 
 ```sh
-composer require laravel/ui
-```
+composer require laravel/breeze --dev
 
-```php
-use Illuminate\Support\Facades\Auth;
+php artisan breeze:install
 
-Auth::routes(['verify' => true]);
+npm install
+npm run dev
+php artisan migrate
 ```
 
 ### Running the Install Command
@@ -49,8 +49,6 @@ After installing the package, run the `bazar:install` command. It will run the m
 Also, you may populate your local database with *fake* data. To do so, pass the `--seed` flag to the command.
 
 ```sh
-php artisan ui bootstrap --auth
-
 php artisan bazar:install --seed
 ```
 

@@ -28,52 +28,12 @@ One product can be attached to the cart as different items. In fact, if a produc
 This approach makes it simple to handle quantities, prices, and variations in a cart – even if the same product was attached multiple times but with different `properties`.
 
 ```php
-$item = Cart::addItem($product, 1, ['size' => 'L']);
+$item = Cart::addItem($product, 1, ['Size' => 'L']);
 
-Cart::updateItem($item->id, ['size' => 'S']);
+Cart::updateItem($item->id, ['Size' => 'S']);
 
 Cart::removeItem($item->id);
 ```
-
-#### Properties
-
-Item properties have a key role. First of all, it makes it possible to differentiate between items. Also, this provides vast flexibility. For example, you can create any custom property you want, increasing or decreasing the price, tax, or any attribute of the item before it's getting saved.
-
-By default, Bazar provides a registered property called an `option`. If there are any product variation matches with the given option, automatically, the variation's attributes – like the price - will be saved for the item.
-
-#### Registering Custom Properties
-
-When attaching products to the cart, you may pass custom properties to being saved. You may hook into the saving process by using custom property resolvers.
-
-Let's say the customers can add custom text to the item. The text should cost `0.1` units per character. To achieve this, you may register a custom property resolver using the `Item::resolvePropertyUsing()`.
-
-```php
-// AppServiceProvider
-
-use Bazar\Models\Item;
-
-public function boot(): void
-{
-    Item::resolvePropertyUsing('custom-text', function (Item $item, string $value) {
-        $item->price += (mb_strlen($value) * 0.1);
-    });
-}
-```
-
-From this point, when we add a product to the cart with a `custom-text` property, the price will be increased automatically:
-
-```php
-use Bazar\Models\Product;
-use Bazar\Support\Facades\Cart;
-
-$product = Product::find(1);
-
-Cart::addItem($product, 1, ['custom-text' => 'My custom text.']);
-```
-
-Since the `My custom text.` string is 15 characters long, the price will be increased with `15 * 0.1 = 1.5` unit.
-
-> Note, the base price is always the original price of the product or the variation and uses the currently set currency.
 
 ### Taxes
 
@@ -87,13 +47,13 @@ There are several methods to retrieve the aggregated tax for the model:
 use Bazar\Support\Facades\Cart;
 
 // Aggregate the calculated taxes
-$tax = Cart::getModel()->tax;
+$tax = Cart::getModel()->getTax();
 
 // Recalculate the taxes and update the items
-$tax = Cart::getModel()->tax();
+$tax = Cart::getModel()->calculateTax();
 
 // Recalculate the taxes without updating the items
-$tax = Cart::getModel()->tax(false);
+$tax = Cart::getModel()->calculateTax(false);
 ```
 
 ### Discounts
@@ -106,13 +66,13 @@ Unlike TAXes, discounts are stored directly on the model as an aggregated value.
 use Bazar\Support\Facades\Cart;
 
 // Get the discount attribute
-$tax = Cart::getModel()->discount;
+$tax = Cart::getModel()->getDiscount();
 
 // Recalculate and update the model
-$tax = Cart::getModel()->discount();
+$tax = Cart::getModel()->calculateDiscount();
 
 // Recalculate without updating the model
-$tax = Cart::getModel()->discount(false);
+$tax = Cart::getModel()->calculateDiscount(false);
 ```
 
 ### Shipping
@@ -123,16 +83,13 @@ $tax = Cart::getModel()->discount(false);
 use Bazar\Support\Facades\Cart;
 
 // Get the calculated shipping cost
-Cart::getModel()->shipping->cost;
+Cart::getModel()->shipping->getCost();
 
 // Recalculate the shipping cost
-Cart::getModel()->shipping->cost();
+Cart::getModel()->shipping->calculateCost();
 
 // Recalculate the shipping cost without updating the shipping model
-Cart::getModel()->shipping->cost(false);
-
-// Recalculate the shipping cost with the given shipping driver
-Cart::getModel()->shipping->driver('custom-driver')->cost();
+Cart::getModel()->shipping->calculateCost(false);
 ```
 
 ### Lock/Unlock Mechanism
@@ -214,19 +171,24 @@ Bazar comes with a cookie driver by default. It stores the current cart's token 
 
 Registering cart drivers works almost the same as registering shipping methods or payment gateways. All custom drivers should extend the `Bazar\Cart\Driver` class, which holds one abstract method: `resolve()`.
 
-> Note, the name is guessed automatically from the class name by default. If the guessed name does not match the desired one, you may specify your custom driver name using the `name()` method.
-
 ```php
 use Bazar\Cart\Driver;
 use Bazar\Models\Cart;
 
-class CustomDriver extends Driver
+class TokenDriver extends Driver
 {
-    public function resolve(): Cart
+    protected function resolve(Request $request): Cart
     {
-        return Cart::firstOrCreate([
-            // ...
+        return Cart::query()->firstOrNew([
+            //
         ]);
+    }
+
+    protected function resolved(Request $request, Cart $cart): void
+    {
+        parent::resolved($request, $cart);
+
+        // Callback after cart is resolved
     }
 }
 ```

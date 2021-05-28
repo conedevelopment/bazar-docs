@@ -15,7 +15,6 @@ The checkout service is no more than a helper class that manages and chains the 
 use Bazar\Modesl\Order;
 use Bazar\Support\Facades\Cart;
 use Illuminate\Support\Facades\Response;
-use Throwable;
 
 class CheckoutController extends Controller
 {

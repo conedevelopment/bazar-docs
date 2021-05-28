@@ -29,7 +29,7 @@ Discount::register('fix-20', 20);
 use Bazar\Support\Facades\Discount;
 
 Discount::register('custom-percent', function (Discountable $model) {
-    return $model->total * 0.3;
+    return $model->getTotal() * 0.3;
 });
 ```
 
@@ -43,7 +43,7 @@ class CustomDiscount implements Contract
 {
     public function calculate(Discountable $model): float
     {
-        return $model->total * 0.3;
+        return $model->getTotal() * 0.3;
     }
 }
 

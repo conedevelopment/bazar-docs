@@ -34,18 +34,18 @@ use Bazar\Models\Transaction;
 
 class CreditCardDriver extends Driver
 {
-    public function pay(Order $order, ?float $amount = null, array $attributes = []): Transaction
+    public function pay(Order $order, ?float $amount = null): Transaction
     {
-        $transaction = $order->pay($amount, 'credit-card', $attributes);
+        $transaction = $order->pay($amount, 'credit-card');
 
         // Handle redirection, API calls here if needed
 
         return $transaction;
     }
 
-    public function refund(Order $refund, ?float $amount = null, array $attributes = []): Transaction
+    public function refund(Order $refund, ?float $amount = null): Transaction
     {
-        $transacion = $order->refund($amount, 'credit-card', $attributes);
+        $transacion = $order->refund($amount, 'credit-card');
 
         // Handle redirection, API calls here if needed
 
