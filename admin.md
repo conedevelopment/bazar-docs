@@ -58,7 +58,7 @@ Asset::icon('bazar-package', 'bazar-package::path.to.blade');
 
 Bazar uses [Inertia](https://inertiajs.com/) on the whole admin surface. This means unlike using traditional blade templates, you can't load these *Singe File Components (SFC)* from your service provider, only from a registered script.
 
-After you registered a script with the asset manager, by using the proper evetns, you can bind your custom Inertia pages easily:
+After you registered a script with the asset manager, by using the proper events, you can bind your custom Inertia pages easily:
 
 ```js
 import Index from './Pages/Index';
