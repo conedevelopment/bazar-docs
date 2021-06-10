@@ -9,7 +9,7 @@ order: 3
 
 ## Generic Overview
 
-Bazar comes with a cart service by default, which manages cart models and their functionality.y. The cart service is one of the most crucial concepts in Bazar. It handles products, variations, quantities, taxes, discounts, shipping and prepares the checkout process.
+Bazar comes with a cart service by default, which manages cart models and their functionality. The cart service is one of the most crucial concepts in Bazar. It handles products, variations, quantities, taxes, discounts, shipping and prepares the checkout process.
 
 You can access the current cart by using the `Bazar\Support\Facades\Cart` facade.
 
