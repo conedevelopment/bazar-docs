@@ -23,7 +23,7 @@ Following these guidelines helps communicate that you respect the developers' ti
 
 Responsibilities
 * Create issues for any significant changes and enhancements that you wish to make. Discuss things transparently, and get community feedback.
-* Keep feature versions as small as possible, preferably one new feature perversion.
+* Keep feature versions as small as possible, preferably one new feature per version.
 
 ### All Code Changes Happen Through Pull Requests
 
