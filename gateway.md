@@ -43,9 +43,9 @@ class CreditCardDriver extends Driver
         return $transaction;
     }
 
-    public function refund(Order $refund, ?float $amount = null): Transaction
+    public function refund(Order $order, ?float $amount = null): Transaction
     {
-        $transacion = $order->refund($amount, 'credit-card');
+        $transaction = $order->refund($amount, 'credit-card');
 
         // Handle redirection, API calls here if needed
 
