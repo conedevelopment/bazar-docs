@@ -21,7 +21,7 @@ Requirements:
 You can install Bazar using composer:
 
 ```sh
-laravel new app
+composer create-project laravel/laravel:^8.0
 
 composer require conedevelopment/bazar
 ```
