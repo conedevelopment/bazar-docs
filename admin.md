@@ -88,7 +88,7 @@ Menu::resource(URL::to('bazar/users'), __('Users'), [
     'icon' => 'customer',
 ]);
 
-// Regsitering a single item
+// Registering a single item
 Menu::register(URL::to('bazar/support'), __('Support'), [
     'icon' => 'support',
     'group' => __('Tools'),
